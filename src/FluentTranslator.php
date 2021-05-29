@@ -3,8 +3,10 @@
 namespace Major\Fluent\Laravel;
 
 use Countable;
+use Illuminate\Contracts\Translation\Loader;
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\MessageSelector;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Bundle\FluentBundle;
 
@@ -22,6 +24,16 @@ final class FluentTranslator implements TranslatorContract
         /** @var array<string, mixed> */
         protected array $bundleOptions,
     ) { }
+
+    public function hasForLocale(string $key, string $locale = null): bool
+    {
+        return $this->has($key, $locale, false);
+    }
+
+    public function has(string $key, string $locale = null, bool $fallback = true): bool
+    {
+        return $this->get($key, [], $locale, $fallback) !== $key;
+    }
 
     /**
      * @param string $key
@@ -76,6 +88,57 @@ final class FluentTranslator implements TranslatorContract
     public function choice($key, $number, array $replace = [], $locale = null)
     {
         return $this->baseTranslator->choice(...func_get_args());
+    }
+
+    /**
+     * @param array<mixed, mixed> $lines
+     */
+    public function addLines(array $lines, string $locale, string $namespace = '*'): void
+    {
+        $this->baseTranslator->addLines(...func_get_args());
+    }
+
+    public function load(string $namespace, string $group, string $locale): void
+    {
+        $this->baseTranslator->load($namespace, $group, $locale);
+    }
+
+    public function addNamespace(string $namespace, string $hint): void
+    {
+        $this->baseTranslator->addNamespace($namespace, $hint);
+    }
+
+    public function addJsonPath(string $path): void
+    {
+        $this->baseTranslator->addJsonPath($path);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function parseKey(string $key): array
+    {
+        return $this->baseTranslator->parseKey($key);
+    }
+
+    public function getSelector(): MessageSelector
+    {
+        return $this->baseTranslator->getSelector();
+    }
+
+    public function setSelector(MessageSelector $selector): void
+    {
+        $this->baseTranslator->setSelector($selector);
+    }
+
+    public function getLoader(): Loader
+    {
+        return $this->baseTranslator->getLoader();
+    }
+
+    public function locale(): string
+    {
+        return $this->getLocale();
     }
 
     public function getLocale(): string
