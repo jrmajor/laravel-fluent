@@ -1,0 +1,28 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  unit-tests:
+    name: PHP ${{ matrix.php }}, ${{ matrix.stability }}
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.0']
+        stability: [prefer-lowest, prefer-stable]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Install dependencies
+        run: composer update --${{ matrix.stability }} ${{ matrix.flags }} --prefer-dist --no-progress --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/pest
