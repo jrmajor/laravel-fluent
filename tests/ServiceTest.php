@@ -16,8 +16,10 @@ test('test environment is set up', function () {
 test('fluent translator is registered', function (string $abstract) {
     expect(app($abstract))->toBeInstanceOf(FluentTranslator::class);
 })->with([
-    'translator', TranslatorContract::class,
-    BaseTranslator::class, FluentTranslator::class,
+    'translator',
+    TranslatorContract::class,
+    BaseTranslator::class,
+    FluentTranslator::class,
 ]);
 
 it('sets correct locales', function () {

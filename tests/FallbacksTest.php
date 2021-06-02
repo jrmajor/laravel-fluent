@@ -36,6 +36,10 @@ test('variables work in PHP fallbacks', function () {
     expect(__('fallbacks.var-in-php-fallback', ['status' => 'works']))->toBe('It works.');
 });
 
-it('always uses PHP fallback for choice()', function () {
+it('always uses PHP fallback for trans_choice()', function () {
     expect(trans_choice('fallbacks.choice', 2, ['var' => 'test']))->toBe('2 test.');
+});
+
+it('always uses PHP fallback for Translator::choice()', function () {
+    expect(app('translator')->choice('fallbacks.choice', 2, ['var' => 'test']))->toBe('2 test.');
 });
