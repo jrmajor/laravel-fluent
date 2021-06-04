@@ -29,6 +29,23 @@ __('pagination.shared-photos', [
 
 You can install it via Composer: `composer require jrmajor/laravel-fluent`. It requires PHP 8.0 and Laravel 8.0 or higher.
 
+## Usage
+
+Fluent translations are stored in `.ftl` files. Place them along your `.php` translation files in your Laravel app:
+
+```
+/resources
+  /lang
+    /en
+      menu.ftl
+      validation.php
+    /pl
+      menu.ftl
+      validation.php
+```
+
+If there is no Fluent message for given key, translator will fall back to `.php` file, which allows you to introduce Fluent translation format progressively. Laravel validator uses custom logic for replacing `:attribute` variable and requires deeply nested keys, which are not supported in Fluent, so you should leave `validation.php` file in default Laravel format.
+
 ## Testing
 
 ```shell
