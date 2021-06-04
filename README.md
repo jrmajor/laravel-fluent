@@ -5,11 +5,9 @@
 
 Unleash the expressive power of the natural language in your Laravel application. See [Fluent Syntax Guide](https://projectfluent.org/fluent/guide/) to learn Fluent syntax.
 
-`laravel-fluent` is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php).
+This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php).
 
 ```ftl
-# resources/lang/en/pagination.ftl
-
 shared-photos =
     {$userName} {$photoCount ->
         [one] added a new photo
