@@ -9,10 +9,10 @@ This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com
 
 ```ftl
 shared-photos =
-    {$userName} {$photoCount ->
+    { $userName } { $photoCount ->
         [one] added a new photo
        *[other] added {$photoCount} new photos
-    } to {$userGender ->
+    } to { $userGender ->
         [male] his stream
         [female] her stream
        *[other] their stream
