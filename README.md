@@ -31,6 +31,12 @@ You can install it via Composer: `composer require jrmajor/laravel-fluent`. It r
 
 ## Usage
 
+This package replaces default Laravel translator with `Major\Fluent\Laravel\FluentTranslator`.
+
+```php
+app('translator') instanceof Major\Fluent\Laravel\FluentTranslator; // true
+```
+
 Fluent translations are stored in `.ftl` files. Place them among your `.php` translation files in your Laravel app:
 
 ```
@@ -44,9 +50,21 @@ Fluent translations are stored in `.ftl` files. Place them among your `.php` tra
       validation.php
 ```
 
-If there is no Fluent message for given key, translator will fall back to `.php` file, which allows you to introduce Fluent translation format progressively. Laravel validator uses custom logic for replacing `:attribute` variable and requires deeply nested keys, which are not supported in Fluent, so you should leave `validation.php` file in default Laravel format.
+If there is no Fluent message for given key, translator will fall back to `.php` file, which allows you to introduce Fluent translation format progressively.
 
-### Configuration
+Laravel validator uses custom logic for replacing `:attribute` variable and requires deeply nested keys, which are not supported in Fluent, so you should leave `validation.php` file in default Laravel format.
+
+`trans_choice()` helper always falls back to default translator, as Fluent format eliminates the need for another function.
+
+## Installation
+
+You may install the package via Composer:
+
+```shell
+composer require jrmajor/laravel-fluent
+```
+
+The package will automatically register itself.
 
 Optionally, you can publish the configuration file with this command:
 
