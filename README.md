@@ -31,7 +31,7 @@ You can install it via Composer: `composer require jrmajor/laravel-fluent`. It r
 
 ## Usage
 
-Fluent translations are stored in `.ftl` files. Place them along your `.php` translation files in your Laravel app:
+Fluent translations are stored in `.ftl` files. Place them among your `.php` translation files in your Laravel app:
 
 ```
 /resources
