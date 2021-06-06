@@ -12,7 +12,7 @@ final class FluentServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/fluent.php' => config_path('fluent.php'),
-        ], 'config');
+        ], 'fluent-config');
     }
 
     public function register(): void
