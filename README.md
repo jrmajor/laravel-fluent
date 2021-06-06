@@ -46,6 +46,38 @@ Fluent translations are stored in `.ftl` files. Place them along your `.php` tra
 
 If there is no Fluent message for given key, translator will fall back to `.php` file, which allows you to introduce Fluent translation format progressively. Laravel validator uses custom logic for replacing `:attribute` variable and requires deeply nested keys, which are not supported in Fluent, so you should leave `validation.php` file in default Laravel format.
 
+### Configuration
+
+Optionally, you can publish the configuration file with this command:
+
+```php
+php artisan vendor:publish --tag fluent-config
+```
+
+This will publish the following file in `config/fluent.php`:
+
+```php
+return [
+
+    /*
+     * In strict mode, exceptions will be thrown for syntax errors
+     * in .ftl files, unknown variables in messages etc.
+     * It's recommended to enable this setting in development
+     * to make it easy to spot mistakes.
+     */
+    'strict' => ! app()->isProduction(),
+
+    /*
+     * Determines if it should use Unicode isolation marks (FSI, PDI)
+     * for bidirectional interpolations. You may want to enable this
+     * behaviour if your application uses right-to-left script.
+     */
+    'use_isolating' => false,
+
+];
+
+```
+
 ## Testing
 
 ```shell
