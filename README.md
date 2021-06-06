@@ -11,7 +11,7 @@ This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com
 shared-photos =
     { $userName } { $photoCount ->
         [one] added a new photo
-       *[other] added {$photoCount} new photos
+       *[other] added { $photoCount } new photos
     } to { $userGender ->
         [male] his stream
         [female] her stream
@@ -20,7 +20,7 @@ shared-photos =
 ```
 
 ```php
-__('pagination.shared-photos', [
+__('stream.shared-photos', [
     'userName' => 'jrmajor',
     'photoCount' => 2,
     'userGender' => 'male',
