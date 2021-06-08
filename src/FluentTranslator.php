@@ -12,8 +12,8 @@ use Major\Fluent\Bundle\FluentBundle;
 
 final class FluentTranslator implements TranslatorContract
 {
-    /** @var array<string, array<string, FluentBundle>> */
-    protected array $loaded;
+    /** @var array<string, array<string, FluentBundle|false>> */
+    protected array $loaded = [];
 
     public function __construct(
         protected BaseTranslator $baseTranslator,
@@ -64,18 +64,17 @@ final class FluentTranslator implements TranslatorContract
 
     protected function getBundle(string $locale, string $group): ?FluentBundle
     {
-        return $this->loaded[$locale][$group] ??= $this->loadFtl($locale, $group);
+        return ($this->loaded[$locale][$group] ?? $this->loadFtl($locale, $group)) ?: null;
     }
 
     protected function loadFtl(string $locale, string $group): ?FluentBundle
     {
-        if (! $this->files->exists($full = "{$this->path}/{$locale}/{$group}.ftl")) {
-            return null;
-        }
+        $bundle = $this->files->exists($full = "{$this->path}/{$locale}/{$group}.ftl")
+            ? (new FluentBundle($locale, ...$this->bundleOptions))
+                ->addFtl($this->files->get($full))
+            : false;
 
-        return $this->loaded[$locale][$group]
-            = (new FluentBundle($locale, ...$this->bundleOptions))
-                ->addFtl($this->files->get($full));
+        return ($this->loaded[$locale][$group] = $bundle) ?: null;
     }
 
     /**
