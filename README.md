@@ -98,10 +98,8 @@ return [
 
 ## Testing
 
-```shell
-# Tests
-vendor/bin/pest
-
-# Static analysis
-vendor/bin/phpstan analyse
+```sh
+vendor/bin/pest              # Tests
+vendor/bin/phpstan analyse   # Static analysis
+vendor/bin/php-cs-fixer fix  # Formatting
 ```
