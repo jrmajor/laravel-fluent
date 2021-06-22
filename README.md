@@ -3,7 +3,7 @@
 <a href="https://packagist.org/packages/jrmajor/laravel-fluent"><img src="https://img.shields.io/packagist/v/jrmajor/laravel-fluent.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/jrmajor/laravel-fluent"><img src="https://img.shields.io/packagist/php-v/jrmajor/laravel-fluent.svg" alt="Required PHP Version"></a>
 
-Unleash the expressive power of the natural language in your Laravel application. See [Fluent Syntax Guide](https://projectfluent.org/fluent/guide/) to learn Fluent syntax.
+Unleash the expressive power of the natural language in your Laravel application. Read the [Fluent Syntax Guide](https://projectfluent.org/fluent/guide/) in order to learn more about syntax.
 
 This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php).
 
