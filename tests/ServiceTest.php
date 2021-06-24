@@ -3,6 +3,7 @@
 namespace Major\Fluent\Laravel\Tests;
 
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Laravel\FluentTranslator;
 
@@ -30,6 +31,10 @@ it('sets correct locales', function () {
 
     expect(trans()->getLocale())->toBe('de')
         ->and(trans()->getFallback())->toBe('pl');
+});
+
+it('works with Lang facade', function () {
+    expect(Lang::get('test.test', ['var' => 'def']))->toBe('abc def');
 });
 
 it('works with __() helper', function () {
