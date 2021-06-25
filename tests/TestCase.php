@@ -12,7 +12,7 @@ abstract class TestCase extends OrchestraTestCase
         return [FluentServiceProvider::class];
     }
 
-    protected function defineEnvironment($app): void
+    protected function resolveApplicationBootstrappers($app): void
     {
         $app->instance('path.lang', __DIR__.'/lang');
 
@@ -20,5 +20,7 @@ abstract class TestCase extends OrchestraTestCase
             'app.locale' => 'pl',
             'app.fallback_locale' => 'en',
         ]);
+
+        parent::resolveApplicationBootstrappers($app);
     }
 }
