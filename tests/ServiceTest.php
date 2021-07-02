@@ -11,7 +11,7 @@ test('test environment is set up', function () {
     $path = app('path.lang');
     $locales = app('config')->getMany(['app.locale', 'app.fallback_locale']);
 
-    expect($path)->toBe(__DIR__.'/lang');
+    expect($path)->toBe(__DIR__ . '/lang');
     expect($locales)->toBe(['app.locale' => 'pl', 'app.fallback_locale' => 'en']);
 });
 

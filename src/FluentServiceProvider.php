@@ -16,13 +16,13 @@ final class FluentServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/fluent.php' => config_path('fluent.php'),
+            __DIR__ . '/../config/fluent.php' => config_path('fluent.php'),
         ], 'fluent-config');
     }
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/fluent.php', 'fluent');
+        $this->mergeConfigFrom(__DIR__ . '/../config/fluent.php', 'fluent');
 
         // We need to force register the Laravel translator provider, so that
         // we can obtain an instance of BaseTranslator. Normally service providers

@@ -14,7 +14,7 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function resolveApplicationBootstrappers($app): void
     {
-        $app->instance('path.lang', __DIR__.'/lang');
+        $app->instance('path.lang', __DIR__ . '/lang');
 
         $app['config']->set([
             'app.locale' => 'pl',
