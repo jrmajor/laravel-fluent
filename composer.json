@@ -27,7 +27,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "jrmajor/fluent": "v0.2.0",
+        "jrmajor/fluent": "v0.2.1",
         "laravel/framework": "^8.0"
     },
     "require-dev": {
