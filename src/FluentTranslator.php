@@ -13,7 +13,7 @@ use Major\Fluent\Bundle\FluentBundle;
 final class FluentTranslator implements TranslatorContract
 {
     /** @var array<string, array<string, FluentBundle|false>> */
-    protected array $loaded = [];
+    private array $loaded = [];
 
     public function __construct(
         protected BaseTranslator $baseTranslator,
@@ -62,12 +62,12 @@ final class FluentTranslator implements TranslatorContract
         return $message ?? $this->baseTranslator->get(...func_get_args());
     }
 
-    protected function getBundle(string $locale, string $group): ?FluentBundle
+    private function getBundle(string $locale, string $group): ?FluentBundle
     {
         return ($this->loaded[$locale][$group] ?? $this->loadFtl($locale, $group)) ?: null;
     }
 
-    protected function loadFtl(string $locale, string $group): ?FluentBundle
+    private function loadFtl(string $locale, string $group): ?FluentBundle
     {
         $bundle = $this->files->exists($full = "{$this->path}/{$locale}/{$group}.ftl")
             ? (new FluentBundle($locale, ...$this->bundleOptions))
