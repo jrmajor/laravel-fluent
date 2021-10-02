@@ -27,7 +27,7 @@ __('stream.shared-photos', [
 ]); // jrmajor added 2 new photos to his stream.
 ```
 
-You can install it via Composer: `composer require jrmajor/laravel-fluent`. It requires PHP 8.0 and Laravel 8.0 or higher.
+You may install it via Composer: `composer require jrmajor/laravel-fluent`. It requires PHP 8.0 and Laravel 8.0 or higher.
 
 ## Usage
 
