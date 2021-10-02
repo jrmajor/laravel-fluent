@@ -4,12 +4,13 @@ on: [push]
 
 jobs:
   static-analysis:
-    name: PHP ${{ matrix.php }}
+    name: PHP ${{ matrix.php }}, ${{ matrix.stability }}
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: ['8.0']
+        stability: [prefer-lowest, prefer-stable]
 
     steps:
       - name: Checkout code
@@ -21,7 +22,7 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Install dependencies
-        run: composer install --no-progress --no-interaction
+        run: composer update --${{ matrix.stability }} --no-progress --no-interaction
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-progress --no-interaction
