@@ -99,7 +99,7 @@ return [
 ## Testing
 
 ```sh
-vendor/bin/pest              # Tests
-vendor/bin/phpstan analyse   # Static analysis
-vendor/bin/php-cs-fixer fix  # Formatting
+vendor/bin/phpunit --testdox  # Tests
+vendor/bin/phpstan analyse    # Static analysis
+vendor/bin/php-cs-fixer fix   # Formatting
 ```
