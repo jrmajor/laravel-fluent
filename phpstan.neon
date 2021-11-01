@@ -1,4 +1,10 @@
 parameters:
     level: max
     paths:
+        - config
         - src
+    ignoreErrors:
+        -
+            message: '#^Cannot call method isProduction\(\) on mixed\.$#'
+            count: 1
+            path: config/fluent.php
