@@ -25,12 +25,12 @@ final class FluentTranslator implements TranslatorContract
         protected array $bundleOptions,
     ) { }
 
-    public function hasForLocale(string $key, string $locale = null): bool
+    public function hasForLocale(string $key, ?string $locale = null): bool
     {
         return $this->has($key, $locale, false);
     }
 
-    public function has(string $key, string $locale = null, bool $fallback = true): bool
+    public function has(string $key, ?string $locale = null, bool $fallback = true): bool
     {
         return $this->get($key, [], $locale, $fallback) !== $key;
     }
