@@ -66,13 +66,19 @@ final class ServiceTest extends TestCase
         $this->assertInstanceOf(BaseTranslator::class, $translator);
     }
 
-    public function testItUsesCorrectLocales(): void
+    /**
+     * @testdox it uses correct locales
+     */
+    public function testCorrectLocales(): void
     {
         $this->assertSame('pl', trans()->getLocale());
         $this->assertSame('en', trans()->getFallback());
     }
 
-    public function testLocalesCanBeChanged(): void
+    /**
+     * @testdox locales can be changed
+     */
+    public function testChangeLocales(): void
     {
         app()->setLocale('de');
         app()->setFallbackLocale('pl');
