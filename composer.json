@@ -35,7 +35,7 @@
         "pestphp/pest": "^1.20",
         "phpstan/phpstan": "^0.12.99",
         "phpunit/phpunit": "^9.5",
-        "jrmajor/cs": "^0.2.2"
+        "jrmajor/cs": "^0.3.2"
     },
     "autoload": {
         "psr-4": {
