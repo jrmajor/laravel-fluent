@@ -3,16 +3,23 @@
 namespace Major\Fluent\Laravel;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application as App;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\TranslationServiceProvider;
 use Illuminate\Translation\Translator as BaseTranslator;
 
-/**
- * @property App $app
- */
 final class FluentServiceProvider extends ServiceProvider
 {
+    /** @var Application */
+    protected $app;
+
+    public function __construct($app)
+    {
+        assert($app instanceof Application);
+
+        parent::__construct($app);
+    }
+
     public function boot(): void
     {
         $this->publishes([
@@ -36,17 +43,28 @@ final class FluentServiceProvider extends ServiceProvider
         // there will be no way to resolve BaseTranslator from the container.
         $this->app->instance(BaseTranslator::class, $this->app[BaseTranslator::class]);
 
-        $this->app->singleton('translator', fn (App $app) => new FluentTranslator(
-            baseTranslator: $app[BaseTranslator::class],
-            files: $app[Filesystem::class],
-            path: $app['path.lang'],
-            locale: $app->getLocale(),
-            fallback: $app->getFallbackLocale(),
-            bundleOptions: [
-                'strict' => $app['config']['fluent.strict'],
-                'useIsolating' => $app['config']['fluent.use_isolating'],
-            ],
-        ));
+        $this->app->singleton('translator', function (Application $app) {
+            /** @phpstan-ignore-next-line */
+            $options = $app['config']['fluent'];
+
+            assert(
+                is_array($options)
+                && is_bool($options['strict'])
+                && is_bool($options['use_isolating']),
+            );
+
+            return new FluentTranslator(
+                baseTranslator: $app[BaseTranslator::class], /** @phpstan-ignore-line */
+                files: $app[Filesystem::class],              /** @phpstan-ignore-line */
+                path: $app['path.lang'],                     /** @phpstan-ignore-line */
+                locale: $app->getLocale(),
+                fallback: $app->getFallbackLocale(),
+                bundleOptions: [
+                    'strict' => $options['strict'],
+                    'useIsolating' => $options['use_isolating'],
+                ],
+            );
+        });
 
         $this->app->alias('translator', FluentTranslator::class);
     }

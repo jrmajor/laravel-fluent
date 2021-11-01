@@ -21,7 +21,7 @@ final class FluentTranslator implements TranslatorContract
         protected string $path,
         protected string $locale,
         protected string $fallback,
-        /** @var array<string, mixed> */
+        /** @var array{strict: bool, useIsolating: bool} */
         protected array $bundleOptions,
     ) { }
 
