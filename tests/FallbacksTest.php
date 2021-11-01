@@ -1,45 +1,127 @@
 <?php
 
-it('can get translations from current locale bundle', function () {
-    expect(__('fallbacks.in-current-locale-bundle'))->toBe('In PL bundle.');
-});
+namespace Major\Fluent\Laravel\Tests;
 
-it('falls back to fallback locale bundle', function () {
-    expect(__('fallbacks.in-fallback-locale-bundle'))->toBe('In EN bundle.');
-});
+final class FallbacksTest extends TestCase
+{
+    /**
+     * @testdox it can get translations from current locale bundle
+     */
+    public function testCurrent(): void
+    {
+        $this->assertSame(
+            'In PL bundle.',
+            __('fallbacks.in-current-locale-bundle'),
+        );
+    }
 
-it('falls back to current locale PHP file', function () {
-    expect(__('fallbacks.in-current-locale-php'))->toBe('In PL php file.');
-});
+    /**
+     * @testdox it falls back to fallback locale bundle
+     */
+    public function testFallback(): void
+    {
+        $this->assertSame(
+            'In EN bundle.',
+            __('fallbacks.in-fallback-locale-bundle'),
+        );
+    }
 
-it('falls back to fallback locale PHP file', function () {
-    expect(__('fallbacks.in-fallback-locale-php'))->toBe('In EN php file.');
-});
+    /**
+     * @testdox it falls back to current locale PHP file
+     */
+    public function testPHPCurrent(): void
+    {
+        $this->assertSame(
+            'In PL php file.',
+            __('fallbacks.in-current-locale-php'),
+        );
+    }
 
-it('can get translations from current locale bundle for attributes', function () {
-    expect(__('fallbacks.in-current-locale-bundle.attr'))->toBe('Attribute in PL bundle.');
-});
+    /**
+     * @testdox it falls back to fallback locale PHP file
+     */
+    public function testPHPFallback(): void
+    {
+        $this->assertSame(
+            'In EN php file.',
+            __('fallbacks.in-fallback-locale-php'),
+        );
+    }
 
-it('falls back to fallback locale bundle for attributes', function () {
-    expect(__('fallbacks.in-fallback-locale-bundle.attr'))->toBe('Attribute in EN bundle.');
-});
+    /**
+     * @testdox it can get translations from current locale bundle for attributes
+     */
+    public function testCurrentAttributes(): void
+    {
+        $this->assertSame(
+            'Attribute in PL bundle.',
+            __('fallbacks.in-current-locale-bundle.attr'),
+        );
+    }
 
-it('falls back to current locale PHP file for attributes', function () {
-    expect(__('fallbacks.in-current-locale-php-nested.key'))->toBe('Nested key in PL php file.');
-});
+    /**
+     * @testdox it falls back to fallback locale bundle for attributes
+     */
+    public function testFallbackAttributes(): void
+    {
+        $this->assertSame(
+            'Attribute in EN bundle.',
+            __('fallbacks.in-fallback-locale-bundle.attr'),
+        );
+    }
 
-it('falls back to fallback locale PHP file for attributes', function () {
-    expect(__('fallbacks.in-fallback-locale-php-nested.key'))->toBe('Nested key in EN php file.');
-});
+    /**
+     * @testdox it falls back to current locale PHP file for attributes
+     */
+    public function testPHPCurrentAttributes(): void
+    {
+        $this->assertSame(
+            'Nested key in PL php file.',
+            __('fallbacks.in-current-locale-php-nested.key'),
+        );
+    }
 
-test('variables work in PHP fallbacks', function () {
-    expect(__('fallbacks.var-in-php-fallback', ['status' => 'works']))->toBe('It works.');
-});
+    /**
+     * @testdox it falls back to fallback locale PHP file for attributes
+     */
+    public function testPHPFallbackAttributes(): void
+    {
+        $this->assertSame(
+            'Nested key in EN php file.',
+            __('fallbacks.in-fallback-locale-php-nested.key'),
+        );
+    }
 
-it('always uses PHP fallback for trans_choice()', function () {
-    expect(trans_choice('fallbacks.choice', 2, ['var' => 'test']))->toBe('2 test.');
-});
+    /**
+     * @testdox variables work in PHP fallbacks
+     */
+    public function testVariablesInFallbacks(): void
+    {
+        $this->assertSame(
+            'It works.',
+            __('fallbacks.var-in-php-fallback', ['status' => 'works']),
+        );
+    }
 
-it('always uses PHP fallback for Translator::choice()', function () {
-    expect(app('translator')->choice('fallbacks.choice', 2, ['var' => 'test']))->toBe('2 test.');
-});
+    /**
+     * @testdox it always uses PHP fallback for trans_choice()
+     */
+    public function testTransChoiceFallback(): void
+    {
+        $this->assertSame(
+            '2 test.',
+            trans_choice('fallbacks.choice', 2, ['var' => 'test']),
+        );
+    }
+
+    /**
+     * @testdox it always uses PHP fallback for Translator::choice()
+     */
+    public function testTranslatorChoiceFallback(): void
+    {
+        $this->assertSame(
+            '2 test.',
+            app('translator')->choice('fallbacks.choice', 2, ['var' => 'test']),
+        );
+    }
+}

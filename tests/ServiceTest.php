@@ -2,66 +2,111 @@
 
 namespace Major\Fluent\Laravel\Tests;
 
+use Generator;
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Laravel\FluentTranslator;
 
-test('test environment is set up', function () {
-    $path = app('path.lang');
-    $locales = app('config')->getMany(['app.locale', 'app.fallback_locale']);
+final class ServiceTest extends TestCase
+{
+    /**
+     * @testdox test environment is properly set up
+     */
+    public function testEnvironment(): void
+    {
+        $path = app('path.lang');
+        $locales = app('config')->getMany(['app.locale', 'app.fallback_locale']);
 
-    expect($path)->toBe(__DIR__ . '/lang');
-    expect($locales)->toBe(['app.locale' => 'pl', 'app.fallback_locale' => 'en']);
-});
+        $this->assertSame(__DIR__ . '/lang', $path);
 
-test('fluent translator is properly registered in container', function ($abstract, $concrete) {
-    expect(app($abstract))->toBeInstanceOf($concrete);
-})->with([
-    ['translator', FluentTranslator::class],
-    [TranslatorContract::class, FluentTranslator::class],
-    [FluentTranslator::class, FluentTranslator::class],
-    [BaseTranslator::class, BaseTranslator::class],
-]);
+        $this->assertSame([
+            'app.locale' => 'pl',
+            'app.fallback_locale' => 'en',
+        ], $locales);
+    }
 
-test('fluent translator can be resolved via dependency injection', function () {
-    $translator = app(NeedsFluentTranslator::class)->translator;
+    /**
+     * @dataProvider provideProviderCases
+     * @testdox fluent translator is properly registered in container
+     */
+    public function testProvider($abstract, $concrete): void
+    {
+        $this->assertInstanceOf($concrete, app($abstract));
+    }
 
-    expect($translator)->toBeInstanceOf(FluentTranslator::class);
-});
+    public function provideProviderCases(): Generator
+    {
+        yield ['translator', FluentTranslator::class];
 
-test('base translator can be resolved via dependency injection', function () {
-    $translator = app(NeedsBaseTranslator::class)->translator;
+        yield [TranslatorContract::class, FluentTranslator::class];
 
-    expect($translator)->toBeInstanceOf(BaseTranslator::class);
-});
+        yield [FluentTranslator::class, FluentTranslator::class];
 
-it('uses correct locales', function () {
-    expect(trans()->getLocale())->toBe('pl')
-        ->and(trans()->getFallback())->toBe('en');
-});
+        yield [BaseTranslator::class, BaseTranslator::class];
+    }
 
-test('locales can be changed', function () {
-    app()->setLocale('de');
-    app()->setFallbackLocale('pl');
+    /**
+     * @testdox fluent translator can be resolved via dependency injection
+     */
+    public function testFluentDI(): void
+    {
+        $translator = app(NeedsFluentTranslator::class)->translator;
 
-    expect(trans()->getLocale())->toBe('de')
-        ->and(trans()->getFallback())->toBe('pl');
-});
+        $this->assertInstanceOf(FluentTranslator::class, $translator);
+    }
 
-it('works with Lang facade', function () {
-    expect(Lang::get('test.test', ['var' => 'def']))->toBe('abc def');
-});
+    /**
+     * @testdox base translator can be resolved via dependency injection
+     */
+    public function testBaseDI(): void
+    {
+        $translator = app(NeedsBaseTranslator::class)->translator;
 
-it('works with __() helper', function () {
-    expect(__('test.test', ['var' => 'def']))->toBe('abc def');
-});
+        $this->assertInstanceOf(BaseTranslator::class, $translator);
+    }
 
-it('works with trans() helper', function () {
-    expect(trans())->toBeInstanceOf(FluentTranslator::class);
+    public function testItUsesCorrectLocales(): void
+    {
+        $this->assertSame('pl', trans()->getLocale());
+        $this->assertSame('en', trans()->getFallback());
+    }
 
-    expect(trans('test.test', ['var' => 'def']))->toBe('abc def');
-});
+    public function testLocalesCanBeChanged(): void
+    {
+        app()->setLocale('de');
+        app()->setFallbackLocale('pl');
+
+        $this->assertSame('de', trans()->getLocale());
+        $this->assertSame('pl', trans()->getFallback());
+    }
+
+    /**
+     * @testdox it works with Lang facade
+     */
+    public function testFacade(): void
+    {
+        $this->assertSame('abc def', Lang::get('test.test', ['var' => 'def']));
+    }
+
+    /**
+     * @testdox it works with __() helper
+     */
+    public function testHelper(): void
+    {
+        $this->assertSame('abc def', __('test.test', ['var' => 'def']));
+    }
+
+    /**
+     * @testdox it works with trans() facade
+     */
+    public function testTransHelper(): void
+    {
+        $this->assertInstanceOf(FluentTranslator::class, trans());
+
+        $this->assertSame('abc def', trans('test.test', ['var' => 'def']));
+    }
+}
 
 class NeedsFluentTranslator
 {
