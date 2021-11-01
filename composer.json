@@ -31,9 +31,9 @@
         "laravel/framework": "^8.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.7",
-        "pestphp/pest": "^1.18",
-        "phpstan/phpstan": "^0.12.97",
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.20",
+        "phpstan/phpstan": "^0.12.99",
         "phpunit/phpunit": "^9.5",
         "jrmajor/cs": "^0.2.2"
     },
