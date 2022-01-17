@@ -1,6 +1,7 @@
 {
     "name": "jrmajor/laravel-fluent",
     "description": "Fluent translations for Laravel",
+    "license": "MIT",
     "keywords": [
         "translator",
         "translation",
@@ -15,25 +16,26 @@
         "ftl",
         "mozilla"
     ],
-    "homepage": "https://github.com/jrmajor/laravel-fluent",
-    "license": "MIT",
     "authors": [
         {
             "name": "Jeremiasz Major",
             "email": "jrh.mjr@gmail.com"
         }
     ],
+    "homepage": "https://github.com/jrmajor/laravel-fluent",
     "require": {
         "php": "^8.0",
         "jrmajor/fluent": "v0.2.1",
         "laravel/framework": "^8.0"
     },
     "require-dev": {
+        "jrmajor/cs": "^0.3.2",
         "orchestra/testbench": "^6.22",
         "phpstan/phpstan": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "jrmajor/cs": "^0.3.2"
+        "phpunit/phpunit": "^9.5"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Major\\Fluent\\Laravel\\": "src"
@@ -44,11 +46,11 @@
             "Major\\Fluent\\Laravel\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "extra": {
         "laravel": {
-            "providers": ["Major\\Fluent\\Laravel\\FluentServiceProvider"]
+            "providers": [
+                "Major\\Fluent\\Laravel\\FluentServiceProvider"
+            ]
         }
     }
 }
