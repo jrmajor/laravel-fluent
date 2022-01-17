@@ -29,9 +29,9 @@
         "laravel/framework": "^8.0"
     },
     "require-dev": {
-        "jrmajor/cs": "^0.3.2",
-        "orchestra/testbench": "^6.22",
-        "phpstan/phpstan": "^1.0",
+        "jrmajor/cs": "^0.3.3",
+        "orchestra/testbench": "^6.24",
+        "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9.5"
     },
     "minimum-stability": "dev",
