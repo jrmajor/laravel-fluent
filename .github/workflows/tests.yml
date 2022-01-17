@@ -6,12 +6,13 @@ on:
 
 jobs:
   unit-tests:
-    name: PHP ${{ matrix.php }}, ${{ matrix.stability }}
+    name: PHP ${{ matrix.php }}, L ${{ matrix.laravel }}, ${{ matrix.stability }}
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: ['8.0', '8.1']
+        laravel: ['8.*', '9.*']
         stability: [prefer-lowest, prefer-stable]
 
     steps:
@@ -36,7 +37,9 @@ jobs:
           restore-keys: composer-
 
       - name: Install Composer dependencies
-        run: composer update --${{ matrix.stability }} --no-progress --no-interaction
+        run: |
+          composer require laravel/framework:${{ matrix.laravel }} --no-progress --no-interaction --no-update
+          composer update --${{ matrix.stability }} --no-progress --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
