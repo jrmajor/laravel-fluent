@@ -25,7 +25,7 @@
     "homepage": "https://github.com/jrmajor/laravel-fluent",
     "require": {
         "php": "^8.0",
-        "jrmajor/fluent": "v0.2.1",
+        "jrmajor/fluent": "v0.3.0",
         "laravel/framework": "^8.0"
     },
     "require-dev": {

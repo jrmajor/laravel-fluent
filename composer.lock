@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a1e94944dcc8e8f1fc18be1715162f1",
+    "content-hash": "88f2913b02ab938bcdaf9994711c805a",
     "packages": [
         {
             "name": "brick/math",
@@ -501,30 +501,30 @@
         },
         {
             "name": "jrmajor/fluent",
-            "version": "v0.2.1",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrmajor/fluent-php.git",
-                "reference": "49734b5299c5ca940a4553bc3cbd9b351df6d3a1"
+                "reference": "c81c2eb688a7441df8644d6a5fe7b2f6cf92179e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrmajor/fluent-php/zipball/49734b5299c5ca940a4553bc3cbd9b351df6d3a1",
-                "reference": "49734b5299c5ca940a4553bc3cbd9b351df6d3a1",
+                "url": "https://api.github.com/repos/jrmajor/fluent-php/zipball/c81c2eb688a7441df8644d6a5fe7b2f6cf92179e",
+                "reference": "c81c2eb688a7441df8644d6a5fe7b2f6cf92179e",
                 "shasum": ""
             },
             "require": {
                 "ext-intl": "*",
-                "jrmajor/pluralrules": "^0.1.0",
+                "jrmajor/pluralrules": "^1.0",
                 "php": "^8.0"
             },
             "require-dev": {
                 "ext-json": "*",
-                "friendsofphp/php-cs-fixer": "^3.0",
-                "jrmajor/cs": "dev-master",
-                "pestphp/pest": "^1.7",
-                "phpstan/phpstan": "^0.12.90",
-                "phpunit/phpunit": "^9.5"
+                "jrmajor/cs": "^0.2.2",
+                "pestphp/pest": "^1.18",
+                "phpstan/phpstan": "^0.12.97",
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^5.3"
             },
             "type": "library",
             "autoload": {
@@ -564,7 +564,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jrmajor/fluent-php/issues",
-                "source": "https://github.com/jrmajor/fluent-php/tree/v0.2.1"
+                "source": "https://github.com/jrmajor/fluent-php/tree/v0.3.0"
             },
             "funding": [
                 {
@@ -572,34 +572,35 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-02T11:42:23+00:00"
+            "time": "2021-09-01T20:12:48+00:00"
         },
         {
             "name": "jrmajor/pluralrules",
-            "version": "v0.1.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrmajor/pluralrules.git",
-                "reference": "c27bffab745b0d2a26345f52d16f7eac8ce91d0d"
+                "reference": "3cf7098257af320969789794aed6f08390bb3578"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrmajor/pluralrules/zipball/c27bffab745b0d2a26345f52d16f7eac8ce91d0d",
-                "reference": "c27bffab745b0d2a26345f52d16f7eac8ce91d0d",
+                "url": "https://api.github.com/repos/jrmajor/pluralrules/zipball/3cf7098257af320969789794aed6f08390bb3578",
+                "reference": "3cf7098257af320969789794aed6f08390bb3578",
                 "shasum": ""
             },
             "require": {
                 "ext-intl": "*",
-                "php": "^8.0"
+                "php": "~8.0.0 || ~8.1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.0",
+                "azjezz/psl": "^1.9",
                 "hoa/compiler": "~3.17",
-                "jrmajor/cs": "dev-master",
-                "nunomaduro/collision": "^5.5",
-                "pestphp/pest": "^1.8",
-                "phpstan/phpstan": "^0.12.90",
-                "symfony/var-dumper": "^5.3"
+                "jrmajor/cs": "^0.3.3",
+                "nunomaduro/collision": "^5.10",
+                "pestphp/pest": "^1.21",
+                "phpstan/phpstan": "^1.3",
+                "symfony/console": "^5.4",
+                "symfony/var-dumper": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -607,7 +608,8 @@
                     "Major\\PluralRules\\": "src"
                 },
                 "files": [
-                    "src/operands.php"
+                    "src/operands.php",
+                    "src/operators.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -620,15 +622,23 @@
                     "email": "jrh.mjr@gmail.com"
                 }
             ],
-            "description": "CLDR plural rules",
+            "description": "Identify plural categories according to CLDR",
             "homepage": "https://github.com/jrmajor/pluralrules",
             "keywords": [
                 "cldr",
-                "localization"
+                "i18n",
+                "internationalization",
+                "l10n",
+                "language",
+                "locale",
+                "localization",
+                "plural",
+                "plural categories",
+                "plural rules"
             ],
             "support": {
                 "issues": "https://github.com/jrmajor/pluralrules/issues",
-                "source": "https://github.com/jrmajor/pluralrules/tree/v0.1.0"
+                "source": "https://github.com/jrmajor/pluralrules/tree/v1.0.1"
             },
             "funding": [
                 {
@@ -636,7 +646,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-02T11:36:05+00:00"
+            "time": "2022-01-02T22:51:29+00:00"
         },
         {
             "name": "laravel/framework",
