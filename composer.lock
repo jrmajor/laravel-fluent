@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "290c2fef90fb49782b5dc4ec351c257a",
+    "content-hash": "325c5596b3b35c492323d0de38a0099a",
     "packages": [
         {
             "name": "brick/math",
@@ -501,30 +501,36 @@
         },
         {
             "name": "jrmajor/fluent",
-            "version": "v0.3.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrmajor/fluent-php.git",
-                "reference": "c81c2eb688a7441df8644d6a5fe7b2f6cf92179e"
+                "reference": "3a3a7cf4e0ad525c393fc69ad099f4a680da38d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrmajor/fluent-php/zipball/c81c2eb688a7441df8644d6a5fe7b2f6cf92179e",
-                "reference": "c81c2eb688a7441df8644d6a5fe7b2f6cf92179e",
+                "url": "https://api.github.com/repos/jrmajor/fluent-php/zipball/3a3a7cf4e0ad525c393fc69ad099f4a680da38d0",
+                "reference": "3a3a7cf4e0ad525c393fc69ad099f4a680da38d0",
                 "shasum": ""
             },
             "require": {
                 "ext-intl": "*",
                 "jrmajor/pluralrules": "^1.0",
-                "php": "^8.0"
+                "php": "~8.0.0 || ~8.1.0"
             },
             "require-dev": {
+                "azjezz/psl": "^1.9",
                 "ext-json": "*",
-                "jrmajor/cs": "^0.2.2",
-                "pestphp/pest": "^1.18",
-                "phpstan/phpstan": "^0.12.97",
-                "phpunit/phpunit": "^9.5",
-                "symfony/var-dumper": "^5.3"
+                "ext-simplexml": "*",
+                "jrmajor/cs": "^0.3.3",
+                "nunomaduro/collision": "^5.10",
+                "php-standard-library/psalm-plugin": "^1.1",
+                "phpunit/phpunit": "10.0.x-dev",
+                "psalm/plugin-phpunit": "^0.16.1",
+                "sebastian/diff": "5.0.x-dev as 4.0.4",
+                "symfony/console": "^5.4",
+                "symfony/var-dumper": "^5.4",
+                "vimeo/psalm": "^4.17"
             },
             "type": "library",
             "autoload": {
@@ -546,8 +552,6 @@
             "homepage": "https://github.com/jrmajor/fluent-php",
             "keywords": [
                 "ast",
-                "format",
-                "formatting",
                 "ftl",
                 "gender",
                 "i18n",
@@ -556,15 +560,15 @@
                 "language",
                 "locale",
                 "localization",
+                "mozilla",
                 "parser",
                 "plural",
-                "serializer",
-                "translate",
-                "translation"
+                "translation",
+                "translator"
             ],
             "support": {
                 "issues": "https://github.com/jrmajor/fluent-php/issues",
-                "source": "https://github.com/jrmajor/fluent-php/tree/v0.3.0"
+                "source": "https://github.com/jrmajor/fluent-php/tree/v0.4.0"
             },
             "funding": [
                 {
@@ -572,7 +576,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-09-01T20:12:48+00:00"
+            "time": "2022-01-03T01:32:50+00:00"
         },
         {
             "name": "jrmajor/pluralrules",
