@@ -50,7 +50,8 @@ final class FluentServiceProvider extends ServiceProvider
             assert(
                 is_array($options)
                 && is_bool($options['strict'])
-                && is_bool($options['use_isolating']),
+                && is_bool($options['use_isolating'])
+                && is_bool($options['allow_overrides']),
             );
 
             return new FluentTranslator(
@@ -62,6 +63,7 @@ final class FluentServiceProvider extends ServiceProvider
                 bundleOptions: [
                     'strict' => $options['strict'],
                     'useIsolating' => $options['use_isolating'],
+                    'allowOverrides' => $options['allow_overrides'],
                 ],
             );
         });

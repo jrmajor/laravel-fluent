@@ -17,4 +17,10 @@ return [
      */
     'use_isolating' => false,
 
+    /*
+     * Determines if namespaced translations should be overridable in the
+     * standard Laravel manner of creating a `lang/vendor` directory.
+     */
+    'allow_overrides' => true,
+
 ];
