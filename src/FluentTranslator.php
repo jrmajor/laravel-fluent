@@ -64,17 +64,23 @@ final class FluentTranslator implements TranslatorContract
 
     private function getBundle(string $locale, string $group): ?FluentBundle
     {
-        return ($this->loaded[$locale][$group] ?? $this->loadFtl($locale, $group)) ?: null;
+        if (! isset($this->loaded[$locale][$group])) {
+            $this->loaded[$locale][$group] = $this->loadFtl($locale, $group) ?? false;
+        }
+
+        return $this->loaded[$locale][$group] ?: null;
     }
 
     private function loadFtl(string $locale, string $group): ?FluentBundle
     {
-        $bundle = $this->files->exists($full = "{$this->path}/{$locale}/{$group}.ftl")
-            ? (new FluentBundle($locale, ...$this->bundleOptions))
-                ->addFtl($this->files->get($full))
-            : false;
+        $path = "{$this->path}/{$locale}/{$group}.ftl";
 
-        return ($this->loaded[$locale][$group] = $bundle) ?: null;
+        if (! $this->files->exists($path)) {
+            return null;
+        }
+
+        return (new FluentBundle($locale, ...$this->bundleOptions))
+            ->addFtl($this->files->get($path));
     }
 
     /**
