@@ -82,11 +82,10 @@ final class FluentTranslator implements TranslatorContract
      * @param Countable|int|array<mixed, mixed> $number
      * @param array<string, mixed> $replace
      * @param ?string $locale
-     * @return string
      */
-    public function choice($key, $number, array $replace = [], $locale = null)
+    public function choice($key, $number, array $replace = [], $locale = null): string
     {
-        return $this->baseTranslator->choice(...func_get_args());
+        return $this->baseTranslator->choice($key, $number, $replace, $locale);
     }
 
     /**
@@ -94,7 +93,7 @@ final class FluentTranslator implements TranslatorContract
      */
     public function addLines(array $lines, string $locale, string $namespace = '*'): void
     {
-        $this->baseTranslator->addLines(...func_get_args());
+        $this->baseTranslator->addLines($lines, $locale, $namespace);
     }
 
     public function load(string $namespace, string $group, string $locale): void
