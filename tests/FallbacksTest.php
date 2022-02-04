@@ -121,7 +121,7 @@ final class FallbacksTest extends TestCase
     {
         $this->assertSame(
             '2 test.',
-            app('translator')->choice('fallbacks.choice', 2, ['var' => 'test']),
+            $this->translator->choice('fallbacks.choice', 2, ['var' => 'test']),
         );
     }
 }
