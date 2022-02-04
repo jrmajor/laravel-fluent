@@ -2,6 +2,7 @@
 
 namespace Major\Fluent\Laravel;
 
+use Closure;
 use Countable;
 use Illuminate\Contracts\Translation\Loader;
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
@@ -9,11 +10,15 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\MessageSelector;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Bundle\FluentBundle;
+use Major\Fluent\Exceptions\Bundle\FunctionExistsException;
 
 final class FluentTranslator implements TranslatorContract
 {
     /** @var array<string, array<string, FluentBundle|false>> */
     private array $loaded = [];
+
+    /** @var array<string, Closure> */
+    private array $functions = [];
 
     public function __construct(
         protected BaseTranslator $baseTranslator,
@@ -62,6 +67,23 @@ final class FluentTranslator implements TranslatorContract
         return $message ?? $this->baseTranslator->get(...func_get_args());
     }
 
+    public function addFunction(string $name, Closure $function): void
+    {
+        if (array_key_exists($name, $this->functions)) {
+            throw new FunctionExistsException($name);
+        }
+
+        $this->functions[$name] = $function;
+
+        foreach ($this->loaded as $locale) {
+            foreach ($locale as $bundle) {
+                if ($bundle !== false) {
+                    $bundle->addFunction($name, $function);
+                }
+            }
+        }
+    }
+
     private function getBundle(string $locale, string $group): ?FluentBundle
     {
         if (! isset($this->loaded[$locale][$group])) {
@@ -80,7 +102,8 @@ final class FluentTranslator implements TranslatorContract
         }
 
         return (new FluentBundle($locale, ...$this->bundleOptions))
-            ->addFtl($this->files->get($path));
+            ->addFtl($this->files->get($path))
+            ->addFunctions($this->functions);
     }
 
     /**
