@@ -8,6 +8,7 @@ parameters:
             message: '#^Cannot call method isProduction\(\) on mixed\.$#'
             count: 1
             path: config/fluent.php
+    tmpDir: .cache/phpstan
 
 includes:
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
