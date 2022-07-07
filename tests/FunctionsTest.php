@@ -12,7 +12,7 @@ final class FunctionsTest extends TestCase
      */
     public function testUsage(): void
     {
-        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode($args));
+        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode('', $args));
 
         $this->assertSame('FooBar', __('functions.strings'));
     }
@@ -22,7 +22,7 @@ final class FunctionsTest extends TestCase
      */
     public function testArguments(): void
     {
-        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode($args));
+        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode('', $args));
 
         $this->assertSame('BarBaz', __('functions.args', ['foo' => 'Bar', 'bar' => 'Baz']));
     }
@@ -35,7 +35,7 @@ final class FunctionsTest extends TestCase
         $this->expectException(FunctionExistsException::class);
         $this->expectExceptionMessage('Attempt to override an existing function: CONCAT().');
 
-        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode($args));
+        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode('', $args));
         $this->translator->addFunction('CONCAT', fn (string ...$args) => implode(', ', $args));
     }
 
@@ -52,7 +52,7 @@ final class FunctionsTest extends TestCase
             $this->assertSame('Unknown function: CONCAT().', $e->getMessage());
         }
 
-        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode($args));
+        $this->translator->addFunction('CONCAT', fn (string ...$args) => implode('', $args));
 
         $this->assertSame('FooBar', __('functions.strings'));
     }
