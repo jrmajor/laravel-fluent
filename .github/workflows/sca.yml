@@ -39,8 +39,8 @@ jobs:
 
       - name: Install Composer dependencies
         run: |
-          composer require laravel/framework:${{ matrix.laravel }} --no-progress --no-interaction --no-update
-          composer update --${{ matrix.stability }} --no-progress --no-interaction
+          composer require laravel/framework:${{ matrix.laravel }} --no-update
+          composer update --${{ matrix.stability }}
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-progress --no-interaction
