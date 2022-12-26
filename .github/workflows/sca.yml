@@ -38,9 +38,7 @@ jobs:
           restore-keys: composer-
 
       - name: Install Composer dependencies
-        run: |
-          composer require laravel/framework:${{ matrix.laravel }} --no-update
-          composer update --${{ matrix.stability }}
+        run: composer update laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies --${{ matrix.stability }}
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-progress --no-interaction
