@@ -56,7 +56,9 @@ If there is no Fluent message for a given key, translator will fall back to a `.
 
 Laravel validator uses custom logic for replacing the `:attribute` variable and requires deeply nested keys, which are not supported in Fluent, so you should leave `validation.php` file in the default Laravel format.
 
-The `trans_choice()` helper always falls back to the default translator, as Fluent format eliminates the need for this function.
+The `trans_choice()` helper always falls back to the default translator, as the Fluent format eliminates the need for this function.
+
+You may use the `FluentTranslator::addFunction()` method to register [Fluent functions](https://projectfluent.org/fluent/guide/functions.html).
 
 ### Configuration
 
