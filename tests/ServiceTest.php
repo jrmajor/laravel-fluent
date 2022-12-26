@@ -28,6 +28,7 @@ final class ServiceTest extends TestCase
 
     /**
      * @dataProvider provideProviderCases
+     *
      * @testdox fluent translator is properly registered in container
      */
     public function testProvider($abstract, $concrete): void

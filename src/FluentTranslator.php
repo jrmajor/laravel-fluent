@@ -53,7 +53,7 @@ final class FluentTranslator implements TranslatorContract
         $segments = explode('.', $key, limit: 2);
 
         if (str_contains($key, '::') || count($segments) !== 2) {
-            return $this->baseTranslator->get(...func_get_args());
+            return $this->baseTranslator->get($key, $replace, $locale, $fallback);
         }
 
         [$group, $item] = $segments;
@@ -64,7 +64,7 @@ final class FluentTranslator implements TranslatorContract
             $message ??= $this->getBundle($this->fallback, $group)?->message($item, $replace);
         }
 
-        return $message ?? $this->baseTranslator->get(...func_get_args());
+        return $message ?? $this->baseTranslator->get($key, $replace, $locale, $fallback);
     }
 
     public function addFunction(string $name, Closure $function): void

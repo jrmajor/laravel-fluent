@@ -19,7 +19,7 @@ final class LoaderTest extends TestCase
             files: Mockery::mock(Filesystem::class)
                 ->shouldReceive('exists')->twice()->andReturn(false)
                 ->getMock(),
-                path: app('path.lang'),
+            path: app('path.lang'),
             locale: 'pl', fallback: 'en',
             bundleOptions: ['strict' => true, 'useIsolating' => false],
         );
