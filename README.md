@@ -29,7 +29,7 @@ __('stream.shared-photos', [
 
 This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php).
 
-You may install it via Composer: `composer require jrmajor/laravel-fluent`. It supports Laravel 8 and 9.
+You may install it via Composer: `composer require jrmajor/laravel-fluent`. The current version supports only Laravel 9.
 
 ## Usage
 
