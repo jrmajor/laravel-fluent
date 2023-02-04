@@ -29,6 +29,7 @@ abstract class TestCase extends OrchestraTestCase
         $app['config']->set([
             'app.locale' => 'pl',
             'app.fallback_locale' => 'en',
+            'fluent.strict' => true,
         ]);
 
         parent::resolveApplicationBootstrappers($app);
