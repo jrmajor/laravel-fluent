@@ -17,6 +17,7 @@ final class ServiceTest extends TestCase
     {
         $path = app('path.lang');
         $locales = app('config')->getMany(['app.locale', 'app.fallback_locale']);
+        $fluent = app('config')->get('fluent');
 
         $this->assertSame(__DIR__ . '/lang', $path);
 
@@ -24,6 +25,11 @@ final class ServiceTest extends TestCase
             'app.locale' => 'pl',
             'app.fallback_locale' => 'en',
         ], $locales);
+
+        $this->assertSame([
+            'strict' => true,
+            'use_isolating' => false,
+        ], $fluent);
     }
 
     /**

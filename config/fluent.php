@@ -8,7 +8,7 @@ return [
      * It's recommended to enable this setting in development
      * to make it easy to spot mistakes.
      */
-    'strict' => ! app()->isProduction(),
+    'strict' => env('APP_ENV', 'production') !== 'production',
 
     /*
      * Determines if it should use Unicode isolation marks (FSI, PDI)
