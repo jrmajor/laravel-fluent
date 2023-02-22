@@ -44,6 +44,7 @@ final class FluentTranslator implements TranslatorContract
      * @param string $key
      * @param array<string, mixed> $replace
      * @param ?string $locale
+     *
      * @return string|array<string, mixed>
      */
     public function get($key, array $replace = [], $locale = null, bool $fallback = true): string|array
