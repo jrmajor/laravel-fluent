@@ -42,7 +42,7 @@ final class ServiceTest extends TestCase
         $this->assertInstanceOf($concrete, app($abstract));
     }
 
-    public function provideProviderCases(): Generator
+    public static function provideProviderCases(): Generator
     {
         yield ['translator', FluentTranslator::class];
 
