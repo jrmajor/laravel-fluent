@@ -79,7 +79,7 @@ return [
      * It's recommended to enable this setting in development
      * to make it easy to spot mistakes.
      */
-    'strict' => ! app()->isProduction(),
+    'strict' => env('APP_ENV', 'production') !== 'production',
 
     /*
      * Determines if it should use Unicode isolation marks (FSI, PDI)
@@ -94,7 +94,7 @@ return [
 ## Testing
 
 ```sh
-vendor/bin/phpunit --testdox  # Tests
-vendor/bin/phpstan analyse    # Static analysis
-vendor/bin/php-cs-fixer fix   # Formatting
+vendor/bin/phpunit           # Tests
+vendor/bin/phpstan analyse   # Static analysis
+vendor/bin/php-cs-fixer fix  # Formatting
 ```
