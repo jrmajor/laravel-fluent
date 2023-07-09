@@ -27,7 +27,7 @@ __('stream.shared-photos', [
 ]); // jrmajor added 2 new photos to his stream.
 ```
 
-This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php). The current version supports Laravel 9 and 10.
+This package is a Laravel wrapper around [jrmajor/fluent-php](https://github.com/jrmajor/fluent-php). The current version supports Laravel 10.
 
 You may install it via Composer: `composer require jrmajor/laravel-fluent`. The package will automatically register itself.
 
