@@ -7,12 +7,12 @@ use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Laravel\FluentTranslator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 
 final class ServiceTest extends TestCase
 {
-    /**
-     * @testdox test environment is properly set up
-     */
+    #[TestDox('test environment is properly set up')]
     public function testEnvironment(): void
     {
         $path = app('path.lang');
@@ -32,11 +32,8 @@ final class ServiceTest extends TestCase
         ], $fluent);
     }
 
-    /**
-     * @dataProvider provideProviderCases
-     *
-     * @testdox fluent translator is properly registered in container
-     */
+    #[DataProvider('provideProviderCases')]
+    #[TestDox('fluent translator is properly registered in container')]
     public function testProvider($abstract, $concrete): void
     {
         $this->assertInstanceOf($concrete, app($abstract));
@@ -53,9 +50,7 @@ final class ServiceTest extends TestCase
         yield [BaseTranslator::class, BaseTranslator::class];
     }
 
-    /**
-     * @testdox fluent translator can be resolved via dependency injection
-     */
+    #[TestDox('fluent translator can be resolved via dependency injection')]
     public function testFluentDI(): void
     {
         $translator = app(NeedsFluentTranslator::class)->translator;
@@ -63,9 +58,7 @@ final class ServiceTest extends TestCase
         $this->assertInstanceOf(FluentTranslator::class, $translator);
     }
 
-    /**
-     * @testdox base translator can be resolved via dependency injection
-     */
+    #[TestDox('base translator can be resolved via dependency injection')]
     public function testBaseDI(): void
     {
         $translator = app(NeedsBaseTranslator::class)->translator;
@@ -73,18 +66,14 @@ final class ServiceTest extends TestCase
         $this->assertInstanceOf(BaseTranslator::class, $translator);
     }
 
-    /**
-     * @testdox it uses correct locales
-     */
+    #[TestDox('it uses correct locales')]
     public function testCorrectLocales(): void
     {
         $this->assertSame('pl', trans()->getLocale());
         $this->assertSame('en', trans()->getFallback());
     }
 
-    /**
-     * @testdox locales can be changed
-     */
+    #[TestDox('locales can be changed')]
     public function testChangeLocales(): void
     {
         app()->setLocale('de');
@@ -94,25 +83,19 @@ final class ServiceTest extends TestCase
         $this->assertSame('pl', trans()->getFallback());
     }
 
-    /**
-     * @testdox it works with Lang facade
-     */
+    #[TestDox('it works with Lang facade')]
     public function testFacade(): void
     {
         $this->assertSame('abc def', Lang::get('test.test', ['var' => 'def']));
     }
 
-    /**
-     * @testdox it works with __() helper
-     */
+    #[TestDox('it works with __() helper')]
     public function testHelper(): void
     {
         $this->assertSame('abc def', __('test.test', ['var' => 'def']));
     }
 
-    /**
-     * @testdox it works with trans() facade
-     */
+    #[TestDox('it works with trans() facade')]
     public function testTransHelper(): void
     {
         $this->assertInstanceOf(FluentTranslator::class, trans());

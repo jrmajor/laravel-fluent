@@ -6,12 +6,11 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Laravel\FluentTranslator;
 use Mockery;
+use PHPUnit\Framework\Attributes\TestDox;
 
 final class LoaderTest extends TestCase
 {
-    /**
-     * @testdox it tries to load a non-existent file only once
-     */
+    #[TestDox('it tries to load a non-existent file only once')]
     public function testLoadsOnlyOnce(): void
     {
         $translator = new FluentTranslator(

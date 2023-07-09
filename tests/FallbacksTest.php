@@ -2,11 +2,11 @@
 
 namespace Major\Fluent\Laravel\Tests;
 
+use PHPUnit\Framework\Attributes\TestDox;
+
 final class FallbacksTest extends TestCase
 {
-    /**
-     * @testdox it can get translations from current locale bundle
-     */
+    #[TestDox('it can get translations from current locale bundle')]
     public function testCurrent(): void
     {
         $this->assertSame(
@@ -15,9 +15,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to fallback locale bundle
-     */
+    #[TestDox('it falls back to fallback locale bundle')]
     public function testFallback(): void
     {
         $this->assertSame(
@@ -26,9 +24,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to current locale PHP file
-     */
+    #[TestDox('it falls back to current locale PHP file')]
     public function testPHPCurrent(): void
     {
         $this->assertSame(
@@ -37,9 +33,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to fallback locale PHP file
-     */
+    #[TestDox('it falls back to fallback locale PHP file')]
     public function testPHPFallback(): void
     {
         $this->assertSame(
@@ -48,9 +42,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it can get translations from current locale bundle for attributes
-     */
+    #[TestDox('it can get translations from current locale bundle for attributes')]
     public function testCurrentAttributes(): void
     {
         $this->assertSame(
@@ -59,9 +51,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to fallback locale bundle for attributes
-     */
+    #[TestDox('it falls back to fallback locale bundle for attributes')]
     public function testFallbackAttributes(): void
     {
         $this->assertSame(
@@ -70,9 +60,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to current locale PHP file for attributes
-     */
+    #[TestDox('it falls back to current locale PHP file for attributes')]
     public function testPHPCurrentAttributes(): void
     {
         $this->assertSame(
@@ -81,9 +69,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it falls back to fallback locale PHP file for attributes
-     */
+    #[TestDox('it falls back to fallback locale PHP file for attributes')]
     public function testPHPFallbackAttributes(): void
     {
         $this->assertSame(
@@ -92,9 +78,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox variables work in PHP fallbacks
-     */
+    #[TestDox('variables work in PHP fallbacks')]
     public function testVariablesInFallbacks(): void
     {
         $this->assertSame(
@@ -103,9 +87,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it always uses PHP fallback for trans_choice()
-     */
+    #[TestDox('it always uses PHP fallback for trans_choice()')]
     public function testTransChoiceFallback(): void
     {
         $this->assertSame(
@@ -114,9 +96,7 @@ final class FallbacksTest extends TestCase
         );
     }
 
-    /**
-     * @testdox it always uses PHP fallback for Translator::choice()
-     */
+    #[TestDox('it always uses PHP fallback for Translator::choice()')]
     public function testTranslatorChoiceFallback(): void
     {
         $this->assertSame(
