@@ -32,7 +32,7 @@
         "jrmajor/cs": "^0.5.1",
         "orchestra/testbench": "^8.0",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^10.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
