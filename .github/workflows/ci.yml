@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  push:
+    branches-ignore: [master]
+
+jobs:
+  tests:
+    name: Tests / PHP ${{ matrix.php }}, L ${{ matrix.laravel }}, ${{ matrix.stability }}
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.2', '8.3']
+        laravel: ['10.*']
+        stability: [prefer-lowest, prefer-stable]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Get Composer cache directory path
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer update laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies --${{ matrix.stability }}
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
+
+  types:
+    name: Types / PHP ${{ matrix.php }}, L ${{ matrix.laravel }}, ${{ matrix.stability }}
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - php: '8.1'
+            laravel: '10.*'
+            stability: prefer-lowest
+          - php: '8.3'
+            laravel: '10.*'
+            stability: prefer-stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Get Composer cache directory path
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer update laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies --${{ matrix.stability }}
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyze --no-progress --no-interaction
+
+  style:
+    name: Style
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+
+      - name: Get Composer cache directory path
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install Composer dependencies
+        run: composer install
+
+      - name: Run PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --no-interaction
