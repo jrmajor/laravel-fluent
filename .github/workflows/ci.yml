@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: ['8.2', '8.3']
-        laravel: ['10.*']
+        laravel: ['10.*', '11.*']
         stability: [prefer-lowest, prefer-stable]
 
     steps:
@@ -54,6 +54,12 @@ jobs:
             stability: prefer-lowest
           - php: '8.3'
             laravel: '10.*'
+            stability: prefer-stable
+          - php: '8.2'
+            laravel: '11.*'
+            stability: prefer-lowest
+          - php: '8.3'
+            laravel: '11.*'
             stability: prefer-stable
 
     steps:
