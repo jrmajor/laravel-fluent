@@ -7,6 +7,8 @@ updates:
       interval: monthly
     allow:
       - dependency-type: development
+    ignore:
+      - dependency-name: orchestra/testbench
     groups:
       composer:
         update-types: [minor, patch]
