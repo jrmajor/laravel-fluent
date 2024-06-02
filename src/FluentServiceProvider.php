@@ -44,7 +44,7 @@ final class FluentServiceProvider extends ServiceProvider
         $this->app->instance(BaseTranslator::class, $this->app[BaseTranslator::class]);
 
         $this->app->singleton('translator', function (Application $app) {
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
             $options = $app['config']['fluent'];
 
             assert(
@@ -54,9 +54,12 @@ final class FluentServiceProvider extends ServiceProvider
             );
 
             return new FluentTranslator(
-                baseTranslator: $app[BaseTranslator::class], /** @phpstan-ignore-line */
-                files: $app[Filesystem::class],              /** @phpstan-ignore-line */
-                path: $app['path.lang'],                     /** @phpstan-ignore-line */
+                /** @phpstan-ignore argument.type */
+                baseTranslator: $app[BaseTranslator::class],
+                /** @phpstan-ignore argument.type */
+                files: $app[Filesystem::class],
+                /** @phpstan-ignore argument.type */
+                path: $app['path.lang'],
                 locale: $app->getLocale(),
                 fallback: $app->getFallbackLocale(),
                 bundleOptions: [
