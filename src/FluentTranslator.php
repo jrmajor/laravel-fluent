@@ -142,7 +142,7 @@ final class FluentTranslator implements TranslatorContract
     }
 
     /**
-     * @return string[]
+     * @return array<string>
      */
     public function parseKey(string $key): array
     {
