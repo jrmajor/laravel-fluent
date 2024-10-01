@@ -31,7 +31,7 @@
     "require-dev": {
         "jrmajor/cs": "^0.6.0",
         "orchestra/testbench": "^9.1",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^11.2"
     },
     "minimum-stability": "dev",
