@@ -54,6 +54,7 @@ final class FluentTranslator implements TranslatorContract
         $segments = explode('.', $key, limit: 2);
 
         if (str_contains($key, '::') || count($segments) !== 2) {
+            /** @phpstan-ignore return.type */
             return $this->baseTranslator->get($key, $replace, $locale, $fallback);
         }
 
@@ -65,6 +66,7 @@ final class FluentTranslator implements TranslatorContract
             $message ??= $this->getBundle($this->fallback, $group)?->message($item, $replace);
         }
 
+        /** @phpstan-ignore return.type */
         return $message ?? $this->baseTranslator->get($key, $replace, $locale, $fallback);
     }
 
@@ -146,6 +148,7 @@ final class FluentTranslator implements TranslatorContract
      */
     public function parseKey(string $key): array
     {
+        /** @phpstan-ignore return.type */
         return $this->baseTranslator->parseKey($key);
     }
 
