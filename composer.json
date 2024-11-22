@@ -29,7 +29,7 @@
         "laravel/framework": "^11.0"
     },
     "require-dev": {
-        "jrmajor/cs": "^0.6.0",
+        "jrmajor/cs": "^0.6.1",
         "orchestra/testbench": "^9.1",
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^11.2"
