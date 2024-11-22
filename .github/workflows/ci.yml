@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['8.2', '8.3']
+        php: ['8.2', '8.3', '8.4']
         laravel: ['11.*']
         stability: [prefer-lowest, prefer-stable]
 
@@ -52,7 +52,7 @@ jobs:
           - php: '8.2'
             laravel: '11.*'
             stability: prefer-lowest
-          - php: '8.3'
+          - php: '8.4'
             laravel: '11.*'
             stability: prefer-stable
 
