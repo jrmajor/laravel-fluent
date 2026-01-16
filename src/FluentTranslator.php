@@ -21,13 +21,13 @@ final class FluentTranslator implements TranslatorContract
     private array $functions = [];
 
     public function __construct(
-        protected BaseTranslator $baseTranslator,
-        protected Filesystem $files,
-        protected string $path,
-        protected string $locale,
-        protected string $fallback,
+        private BaseTranslator $baseTranslator,
+        private Filesystem $files,
+        private string $path,
+        private string $locale,
+        private string $fallback,
         /** @var array{strict: bool, useIsolating: bool} */
-        protected array $bundleOptions,
+        private array $bundleOptions,
     ) { }
 
     public function hasForLocale(string $key, ?string $locale = null): bool
