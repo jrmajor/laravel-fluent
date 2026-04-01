@@ -104,7 +104,7 @@ final class FluentTranslator implements TranslatorContract
             return null;
         }
 
-        return (new FluentBundle($locale, ...$this->bundleOptions))
+        return new FluentBundle($locale, ...$this->bundleOptions)
             ->addFtl($this->files->get($path))
             ->addFunctions($this->functions);
     }
