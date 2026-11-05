@@ -1,8 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches-ignore: [master]
+on: push
 
 env:
   PHP_LOWEST: '8.4'
