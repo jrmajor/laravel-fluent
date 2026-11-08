@@ -27,11 +27,15 @@ jobs:
           php-version: ${{ matrix.php == 'lowest' && env.PHP_LOWEST || env.PHP_LATEST }}
           coverage: none
 
+      - name: Get runtime dependencies
+        id: runtime-deps
+        run: echo "packages=$(jq -r '.require | keys | map(select(contains("/") and . != "laravel/framework")) | join(" ")' composer.json)" >> $GITHUB_OUTPUT
+
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
+          composer-options: ${{ steps.runtime-deps.outputs.packages }} laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Execute tests
         run: vendor/bin/phpunit
@@ -73,11 +77,15 @@ jobs:
           key: phpstan-${{ github.sha }}
           restore-keys: phpstan-
 
+      - name: Get runtime dependencies
+        id: runtime-deps
+        run: echo "packages=$(jq -r '.require | keys | map(select(contains("/") and . != "laravel/framework")) | join(" ")' composer.json)" >> $GITHUB_OUTPUT
+
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
+          composer-options: ${{ steps.runtime-deps.outputs.packages }} laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyze --no-progress --no-interaction
