@@ -8,18 +8,18 @@ env:
 
 jobs:
   tests:
-    name: Tests / ${{ matrix.php }} PHP , L ${{ matrix.laravel }}, ${{ matrix.stability }}
+    name: Tests / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.dependencies }} deps
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['lowest', 'latest']
+        php: [lowest, latest]
         laravel: ['12.*', '13.*']
-        stability: [prefer-lowest, prefer-stable]
+        dependencies: [lowest, highest]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -27,46 +27,38 @@ jobs:
           php-version: ${{ matrix.php == 'lowest' && env.PHP_LOWEST || env.PHP_LATEST }}
           coverage: none
 
-      - name: Get Composer cache directory path
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
-
       - name: Install Composer dependencies
-        run: composer update laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies --${{ matrix.stability }}
+        uses: ramsey/composer-install@v4
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+          composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Execute tests
         run: vendor/bin/phpunit
 
   types:
-    name: Types / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.stability }}
+    name: Types / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.dependencies }} deps
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - php: 'lowest'
+          - php: lowest
             laravel: '12.*'
-            stability: prefer-lowest
-          - php: 'latest'
+            dependencies: lowest
+          - php: latest
             laravel: '12.*'
-            stability: prefer-stable
-          - php: 'lowest'
+            dependencies: highest
+          - php: lowest
             laravel: '13.*'
-            stability: prefer-lowest
-          - php: 'latest'
+            dependencies: lowest
+          - php: latest
             laravel: '13.*'
-            stability: prefer-stable
+            dependencies: highest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -74,26 +66,18 @@ jobs:
           php-version: ${{ matrix.php == 'lowest' && env.PHP_LOWEST || env.PHP_LATEST }}
           coverage: none
 
-      - name: Get Composer cache directory path
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
-
       - name: PHPStan cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: .cache/phpstan
           key: phpstan-${{ github.sha }}
           restore-keys: phpstan-
 
       - name: Install Composer dependencies
-        run: composer update laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies --${{ matrix.stability }}
+        uses: ramsey/composer-install@v4
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+          composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyze --no-progress --no-interaction
@@ -105,7 +89,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -113,26 +97,15 @@ jobs:
           php-version: ${{ env.PHP_LOWEST }}
           coverage: none
 
-      - name: Get Composer cache directory path
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ hashFiles('composer.lock') }}
-          restore-keys: composer-
-
       - name: PHP-CS-Fixer cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: .cache/.php-cs-fixer.cache
           key: php-cs-fixer-${{ github.sha }}
           restore-keys: php-cs-fixer-
 
       - name: Install Composer dependencies
-        run: composer install
+        uses: ramsey/composer-install@v4
 
       - name: Run PHP-CS-Fixer
         run: vendor/bin/php-cs-fixer fix --dry-run --diff --no-interaction
