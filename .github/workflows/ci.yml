@@ -8,14 +8,14 @@ env:
 
 jobs:
   tests:
-    name: Tests / ${{ matrix.php }} PHP , L ${{ matrix.laravel }}, ${{ matrix.stability }}
+    name: Tests / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.dependencies }} deps
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: ['lowest', 'latest']
         laravel: ['12.*', '13.*']
-        stability: [prefer-lowest, prefer-stable]
+        dependencies: [lowest, highest]
 
     steps:
       - name: Checkout code
@@ -30,14 +30,14 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v4
         with:
-          dependency-versions: ${{ matrix.stability == 'prefer-lowest' && 'lowest' || 'highest' }}
+          dependency-versions: ${{ matrix.dependencies }}
           composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Execute tests
         run: vendor/bin/phpunit
 
   types:
-    name: Types / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.stability }}
+    name: Types / ${{ matrix.php }} PHP, L ${{ matrix.laravel }}, ${{ matrix.dependencies }} deps
 
     runs-on: ubuntu-latest
     strategy:
@@ -45,16 +45,16 @@ jobs:
         include:
           - php: 'lowest'
             laravel: '12.*'
-            stability: prefer-lowest
+            dependencies: lowest
           - php: 'latest'
             laravel: '12.*'
-            stability: prefer-stable
+            dependencies: highest
           - php: 'lowest'
             laravel: '13.*'
-            stability: prefer-lowest
+            dependencies: lowest
           - php: 'latest'
             laravel: '13.*'
-            stability: prefer-stable
+            dependencies: highest
 
     steps:
       - name: Checkout code
@@ -76,7 +76,7 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v4
         with:
-          dependency-versions: ${{ matrix.stability == 'prefer-lowest' && 'lowest' || 'highest' }}
+          dependency-versions: ${{ matrix.dependencies }}
           composer-options: laravel/framework:${{ matrix.laravel }} orchestra/testbench --with-all-dependencies
 
       - name: Run PHPStan
