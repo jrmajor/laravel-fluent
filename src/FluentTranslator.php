@@ -11,6 +11,7 @@ use Illuminate\Translation\MessageSelector;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Bundle\FluentBundle;
 use Major\Fluent\Exceptions\Bundle\FunctionExistsException;
+use Override;
 
 final class FluentTranslator implements TranslatorContract
 {
@@ -47,6 +48,7 @@ final class FluentTranslator implements TranslatorContract
      *
      * @return string|array<string, mixed>
      */
+    #[Override]
     public function get($key, array $replace = [], $locale = null, bool $fallback = true): string|array
     {
         $locale ??= $this->locale;
@@ -115,6 +117,7 @@ final class FluentTranslator implements TranslatorContract
      * @param array<string, mixed> $replace
      * @param ?string $locale
      */
+    #[Override]
     public function choice($key, $number, array $replace = [], $locale = null): string
     {
         return $this->baseTranslator->choice($key, $number, $replace, $locale);
@@ -172,6 +175,7 @@ final class FluentTranslator implements TranslatorContract
         return $this->getLocale();
     }
 
+    #[Override]
     public function getLocale(): string
     {
         return $this->locale;
@@ -180,6 +184,7 @@ final class FluentTranslator implements TranslatorContract
     /**
      * @param string $locale
      */
+    #[Override]
     public function setLocale($locale): void
     {
         $this->locale = $locale;
