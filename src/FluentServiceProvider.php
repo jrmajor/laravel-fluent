@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\TranslationServiceProvider;
 use Illuminate\Translation\Translator as BaseTranslator;
+use Override;
 
 final class FluentServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ final class FluentServiceProvider extends ServiceProvider
         ], 'fluent-config');
     }
 
+    #[Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/fluent.php', 'fluent');
