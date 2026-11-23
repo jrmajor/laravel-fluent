@@ -203,8 +203,8 @@ final class FluentTranslator implements TranslatorContract
     #[Override]
     public function setLocale($locale): void
     {
-        $this->locale = $locale;
         $this->baseTranslator->setLocale($locale);
+        $this->locale = $locale;
     }
 
     public function getFallback(): string
