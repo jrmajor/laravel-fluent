@@ -100,6 +100,10 @@ final class FluentTranslator implements TranslatorContract
 
     private function loadFtl(string $locale, string $group): ?FluentBundle
     {
+        if ($this->isUnsafePathSegment($locale) || $this->isUnsafePathSegment($group, allowSlashes: true)) {
+            return null;
+        }
+
         $path = "{$this->path}/{$locale}/{$group}.ftl";
 
         if (! $this->files->exists($path)) {
@@ -109,6 +113,18 @@ final class FluentTranslator implements TranslatorContract
         return new FluentBundle($locale, ...$this->bundleOptions)
             ->addFtl($this->files->get($path))
             ->addFunctions($this->functions);
+    }
+
+    /**
+     * Mirrors Laravel's FileLoader, so that FTL files reject the same locales and groups as PHP and JSON ones.
+     */
+    private function isUnsafePathSegment(string $value, bool $allowSlashes = false): bool
+    {
+        return $value === ''
+            || str_contains($value, '..')
+            || str_contains($value, '\\')
+            || str_contains($value, "\0")
+            || (! $allowSlashes && str_contains($value, '/'));
     }
 
     /**
