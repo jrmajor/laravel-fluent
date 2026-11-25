@@ -9,6 +9,7 @@ use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\MessageSelector;
 use Illuminate\Translation\Translator as BaseTranslator;
+use InvalidArgumentException;
 use Major\Fluent\Bundle\FluentBundle;
 use Major\Fluent\Exceptions\Bundle\FunctionExistsException;
 use Override;
@@ -70,6 +71,44 @@ final class FluentTranslator implements TranslatorContract
 
         /** @phpstan-ignore return.type */
         return $message ?? $this->baseTranslator->get($key, $replace, $locale, $fallback);
+    }
+
+    /**
+     * @param array<string, mixed> $replace
+     *
+     * @throws InvalidArgumentException
+     */
+    public function string(string $key, array $replace = [], ?string $locale = null, bool $fallback = true): string
+    {
+        $value = $this->get($key, $replace, $locale, $fallback);
+
+        if (! is_string($value)) {
+            throw new InvalidArgumentException(
+                sprintf('Translation value for key [%s] must be a string, %s given.', $key, gettype($value)),
+            );
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param array<string, mixed> $replace
+     *
+     * @return array<array-key, mixed>
+     *
+     * @throws InvalidArgumentException
+     */
+    public function array(string $key, array $replace = [], ?string $locale = null, bool $fallback = true): array
+    {
+        $value = $this->get($key, $replace, $locale, $fallback);
+
+        if (! is_array($value)) {
+            throw new InvalidArgumentException(
+                sprintf('Translation value for key [%s] must be an array, %s given.', $key, gettype($value)),
+            );
+        }
+
+        return $value;
     }
 
     public function addFunction(string $name, Closure $function): void
@@ -155,6 +194,11 @@ final class FluentTranslator implements TranslatorContract
     public function addNamespace(string $namespace, string $hint): void
     {
         $this->baseTranslator->addNamespace($namespace, $hint);
+    }
+
+    public function addPath(string $path): void
+    {
+        $this->baseTranslator->addPath($path);
     }
 
     public function addJsonPath(string $path): void
