@@ -5,6 +5,7 @@ namespace Major\Fluent\Laravel\Tests;
 use Generator;
 use Illuminate\Contracts\Translation\Translator as TranslatorContract;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\Translator as BaseTranslator;
 use Major\Fluent\Laravel\FluentTranslator;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -101,6 +102,19 @@ final class ServiceTest extends TestCase
         $this->assertInstanceOf(FluentTranslator::class, trans());
 
         $this->assertSame('abc def', trans('test.test', ['var' => 'def']));
+    }
+
+    #[TestDox('packages can register translation paths without a namespace')]
+    public function testLoadTranslationsFromPath(): void
+    {
+        $this->app->register(new class ($this->app) extends ServiceProvider {
+            public function register(): void
+            {
+                $this->loadTranslationsFrom(__DIR__ . '/package-lang');
+            }
+        });
+
+        $this->assertSame('From package path.', __('package.from-package'));
     }
 }
 
